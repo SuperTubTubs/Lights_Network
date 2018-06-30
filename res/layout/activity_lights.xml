@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.Lights">
+
+    <TextView
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/titleBarBackground"
+        android:fontFamily="@font/oleo_script_swash_caps"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="2dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="3dp"
+        android:textSize="25sp" />
+
+    <RelativeLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="703dp"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginHorizontal="2dp"
+        android:background="@color/mainBackground">
+
+
+        <TextView
+            android:id="@+id/directions"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="64dp"
+            android:text="TextView"
+            android:textAlignment="viewStart"
+            android:textSize="18sp"
+            tools:text="Choose a lighting scheme below, and hit the button to the right to activate the scheme." />
+
+        <Button
+            android:id="@+id/activation_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="90dp"
+            android:backgroundTint="@color/buttonColor"
+            android:text="@string/button_name" />
+
+        <ListView
+            android:id="@+id/lighting_schemes"
+            android:layout_width="match_parent"
+            android:layout_height="394dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginHorizontal="5dp"
+            android:background="@color/listColor"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="275dp"
+            android:text="@string/light_scheme_title"
+            android:layout_marginHorizontal="5dp"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:background="@color/titleBarBackground"/>
+    </RelativeLayout>
+
+</android.widget.RelativeLayout>
