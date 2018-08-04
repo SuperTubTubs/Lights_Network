@@ -18,4 +18,7 @@ public class Constants {
     public static final int OFF_PATTERN_ID = 102;
     public static final int MARQUE_PATTERN_ID = 103;
 
+    public static final String LOG_TAG = "Light APP";
+
+    public static final String BASE_URL = "http://light_boy:8888/";
 }

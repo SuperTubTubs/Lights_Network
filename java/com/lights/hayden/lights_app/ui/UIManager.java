@@ -22,8 +22,10 @@ public class UIManager implements Observer {
     public final static UIManager instance = new UIManager();
     private Activity parentActivity;
     private Context context;
+    private TableUIManager tableUIManager;
 
     private UIManager(){
+        tableUIManager = new TableUIManager();
 
     }
 
@@ -38,6 +40,10 @@ public class UIManager implements Observer {
             parentActivity = ParentActivity.getParentActivity();
             context = parentActivity.getBaseContext();
         }
+    }
+
+    public TableUIManager getTableUIManager(){
+        return tableUIManager;
     }
 
     /**
