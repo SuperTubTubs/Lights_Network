@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Lights_App</string>
+    <string name="app_name">FlashBang</string>
     <string name="title">Welcome to FlashBang.</string>
     <string name="button_name">Activate!</string>
     <string name="light_scheme_title">Choose a Lighting Scheme Below.</string>
+    <string name="addConfig">Add a Scheme</string>
 </resources>

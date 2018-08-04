@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.Lights">
+    tools:context=".main.Lights"
+    android:background="@color/titleBarBackground">
 
     <TextView
         android:id="@+id/titleBar"
@@ -39,10 +40,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="30dp"
             android:layout_marginTop="64dp"
-            android:text="TextView"
+            android:text="Choose a lighting scheme below, and hit the button to the right to activate the scheme."
             android:textAlignment="viewStart"
-            android:textSize="18sp"
-            tools:text="Choose a lighting scheme below, and hit the button to the right to activate the scheme." />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/activation_button"
