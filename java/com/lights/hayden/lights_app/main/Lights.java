@@ -1,11 +1,21 @@
 package com.lights.hayden.lights_app.main;
 
+import android.os.AsyncTask;
+import android.provider.Contacts;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.ChannelShell;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 
 import com.lights.hayden.lights_app.R;
 import com.lights.hayden.lights_app.network.ConfigDaemon;
@@ -14,6 +24,9 @@ import com.lights.hayden.lights_app.support.Constants;
 import com.lights.hayden.lights_app.ui.AddLightConfigDialog;
 import com.lights.hayden.lights_app.ui.UIManager;
 
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Lights extends AppCompatActivity implements AddLightConfigDialog.AddLightConfigListener {
@@ -23,8 +36,128 @@ public class Lights extends AppCompatActivity implements AddLightConfigDialog.Ad
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lights);
 
+        Button activationButton = (Button) findViewById(R.id.activation_button);
+        activationButton.setOnClickListener(new View.OnClickListener() {
+            //start execution of ssh commands
+            @Override
+            public void onClick(View v){
+                new AsyncTask<Integer, Void, Void>(){
+                    @Override
+                    protected Void doInBackground(Integer... params) {
+                        try {
+                            executeSSHActivate();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                }.execute(1);
+                UIManager.getInstance().displayMessage("Server Activated");
+            }
+        });
+
+        Button deactivationButton = (Button) findViewById(R.id.deactivation_button);
+        deactivationButton.setOnClickListener(new View.OnClickListener() {
+            //start execution of ssh commands
+            @Override
+            public void onClick(View v){
+                new AsyncTask<Integer, Void, Void>(){
+                    @Override
+                    protected Void doInBackground(Integer... params) {
+                        try {
+                            executeSSHDeactivate();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                }.execute(1);
+                UIManager.getInstance().displayMessage("Server Deactivated");
+            }
+        });
+
+
         new Bootloader(this);
     }
+
+    public void executeSSHActivate(){
+        String user = "pi";
+        String password = "AltoiDS45";
+        String host = "light_boy";
+        String command = "/home/pi/FlashBangUI/startFlashbang.sh";
+        int port=22;
+        try {
+
+            JSch jsch = new JSch();
+            Session session = jsch.getSession(user, host, port);
+            session.setPassword(password);
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.setTimeout(10000);
+            session.connect();
+            ChannelExec channel = (ChannelExec) session.openChannel("exec");
+            channel.setCommand(command);
+            channel.setInputStream(null);
+            channel.setErrStream(System.err);
+            try {
+                InputStream in = channel.getInputStream();
+                channel.connect();
+                Thread.sleep(2000);
+                channel.disconnect();
+                session.disconnect();
+
+            }
+        catch(Exception e){
+            System.out.println(e);
+        }
+
+
+            //channel.disconnect();
+            // show success in UI with a snackbar alternatively use a toast
+
+        }
+        catch(JSchException e){
+            // show the error in the UI
+            Log.i(Constants.LOG_TAG,"Server couldn't Activate:"+ e.getMessage());
+        }
+    }
+
+    public void executeSSHDeactivate(){
+        String user = "pi";
+        String password = "AltoiDS45";
+        String host = "light_boy";
+        String command = "/home/pi/FlashBangUI/stopFlashbang.sh";
+        int port=22;
+        try{
+
+            JSch jsch = new JSch();
+            Session session = jsch.getSession(user, host, port);
+            session.setPassword(password);
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.setTimeout(10000);
+            session.connect();
+            ChannelExec channel = (ChannelExec)session.openChannel("exec");
+            channel.setCommand(command);
+            channel.setInputStream(null);
+            channel.setErrStream(System.err);
+            try {
+                InputStream in = channel.getInputStream();
+                channel.connect();
+                Thread.sleep(2000);
+                channel.disconnect();
+                session.disconnect();
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+            // show success in UI with a snackbar alternatively use a toast
+        }
+        catch(JSchException e){
+            // show the error in the UI
+           Log.i(Constants.LOG_TAG,"Server couldn't Deactivate:"+ e.getMessage());
+        }
+    }
+
+
 
     /**
      * This hook is called whenever an item in your options menu is selected.

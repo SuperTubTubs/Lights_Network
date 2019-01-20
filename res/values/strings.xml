@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">FlashBang</string>
     <string name="title">Welcome to FlashBang.</string>
-    <string name="button_name">Activate!</string>
+    <string name="button_name">Activate Server</string>
+    <string name="other_button_name">Deactivate Server</string>
     <string name="light_scheme_title">Choose a Lighting Scheme Below.</string>
     <string name="addConfig">Add a Scheme</string>
     <string name="chooseColor">Choose up to three colors</string>

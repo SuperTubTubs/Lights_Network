@@ -7,5 +7,6 @@
     <color name="titleBarBackground">#53c68c</color>
     <color name="mainBackground">#538dc6</color>
     <color name="buttonColor">#c65370</color>
+    <color name="button2Color">#00e676</color>
     <color name="listColor">#6b8cad</color>
 </resources>
